@@ -22,7 +22,7 @@ class Home extends Component {
             </form>
             <button id="tryAgain" name="redo" className="btn btn-lg hvr-grow small">Try Again</button>
             <button id="nextQuestion" name="continueButton" className="btn btn-lg hvr-grow small">Continue</button>
-            <h3>Coreect or incorrect</h3>
+            <h3>Correct/incorrect</h3>
             <h1>SCORE: A number</h1>
             <Link to="/" className="btn btn-lg hvr-grow large">Log Out</Link>
         </div>
