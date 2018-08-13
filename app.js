@@ -4,22 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize('postgres://postgres@localhost:5432/chilangos');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-//Database connection
-app.use(function(req, res, next){
-	res.locals.connection = mysql.createConnection({
-		host     : 'localhost',
-		user     : 'root',
-		password : '',
-		database : 'chilangos'
-	});
-	res.locals.connection.connect();
-	next();
-});
 
 app.use(logger('dev'));
 app.use(express.json());

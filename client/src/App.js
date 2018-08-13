@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import {Route, Switch} from 'react-router-dom';
+import axios from 'axios'
 import './App.css';
 import LandingPage from './landingPage.js';
 import Home from './home.js';
 import EndGame from './endGame.js';
 
 class App extends Component {
+  
+  constructor() {
+    super();
+    this.state = {
+      questions: [],
+    }
+  }
   render() {
     
     return (
