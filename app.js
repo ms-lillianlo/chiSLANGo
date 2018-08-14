@@ -7,6 +7,15 @@ var app = express();
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://postgres@localhost:5432/chilangos');
 
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
