@@ -1,6 +1,5 @@
 const passport = require('passport');
-var passport = require('passport')
-  , FacebookStrategy = require('passport-facebook').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const models = require('./models');
@@ -21,15 +20,22 @@ const setupAuth = (app) => {
     passport.use(new FacebookStrategy({
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
-        callbackURL: "http://www.example.com/auth/facebook/callback"
+        callbackURL: "https://chislango.herokuapp.com/auth/facebook/callback"
       },
       function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate(..., function(err, user) {
-          if (err) { return done(err); }
-          done(null, user);
-        });
-      }
-    ));
+        models.User.findOrCreate({
+            where: {
+                facebookId: profile.id,
+                username: profile.username
+            }
+        })
+            .then(result => {
+                return done(null, result[0]);
+            })
+            .catch(err => { // .catch(done);
+                done(err);
+            })
+    }))
 
     passport.serializeUser(function(user, done) {
         done(null, user.id);
