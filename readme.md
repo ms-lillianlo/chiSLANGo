@@ -23,3 +23,6 @@
     <li>.</li>
     <li>.</li>
 </ul>
+
+<h3>Facebook Terms of Service and Privacy Policy</h3> 
+<p> This is a school project. We are using Facebook in order to utilize Passport.js as a means to authenticate users. Nothing private is stored. We are only accessing your name and your profile id. </p>
