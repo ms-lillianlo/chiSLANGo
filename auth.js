@@ -20,7 +20,7 @@ const setupAuth = (app) => {
     passport.use(new FacebookStrategy({
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
-        callbackURL: "https://chislango.herokuapp.com/auth/facebook/callback"
+        callbackURL: "https://chislango.herokuapp.com/facebook/auth"
       },
       function(accessToken, refreshToken, profile, done) {
         models.User.findOrCreate({
@@ -48,7 +48,7 @@ const setupAuth = (app) => {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    app.get('/login', passport.authenticate('github'));
+    app.get('/login', passport.authenticate('facebook'));
 
 
     app.get('/logout', function(req, res, next){
@@ -56,12 +56,12 @@ const setupAuth = (app) => {
         res.redirect('/');
     });
 
-    app.get('/github/auth',
-        passport.authenticate('github', {
-            failureRedirect: '/login'
+    app.get('/facebook/auth',
+        passport.authenticate('facebook', {
+            failureRedirect: '/'
         }),
         (req, res) => {
-            res.redirect('/home');
+            res.redirect('/about');
         });
 };
 
