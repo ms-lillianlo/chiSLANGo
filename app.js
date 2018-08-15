@@ -1,11 +1,11 @@
-var createError = require('http-errors');
+/* var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://postgres@localhost:5432/chilangos');
+var sequelize = new Sequelize('postgres://hmnkedwbonngcv:659c311e16d62673193fc81c722d8ee05b75dec14558451591d9962a4e5d641b@ec2-23-23-226-190.compute-1.amazonaws.com:5432/deifsfdnk4q9p5');
 
 sequelize
   .authenticate()
@@ -43,11 +43,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports = app; */
 
 //CODE BELOW HERE IS NEW AND WILL BE COMMITTED AT A LATER DATE. THIS IS COMMENTED OUT BECAUSE IT WAS BREAKING THE BACKEND
 
-/* var createError = require('http-errors');
+var createError = require('http-errors');
 var express = require('express');
 let handlebars = require('handlebars');
 var path = require('path');
@@ -55,6 +55,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const dotenv = require('dotenv');
 var Sequelize = require('sequelize');
+var pg = require('pg');
+pg.defaults.ssl = true;
 var sequelize = new Sequelize('postgres://hmnkedwbonngcv:659c311e16d62673193fc81c722d8ee05b75dec14558451591d9962a4e5d641b@ec2-23-23-226-190.compute-1.amazonaws.com:5432/deifsfdnk4q9p5');
 
 sequelize
@@ -105,5 +107,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app; */
+module.exports = app; 
 
