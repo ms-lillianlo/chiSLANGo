@@ -11,7 +11,7 @@ class LandingPage extends Component {
         <div className="card-body">
             <h1>Welcome to chiSLANGo</h1>
             <h3>A language learning game where you get to ignore the grammar and focus on what really matters: <br/>the slang</h3>
-            <Link to='/facebook/auth'><button type="button" className="btn hvr-grow large"><h4>Login with Facebook</h4></button></Link>
+            <Link to='/auth/facebook'><button type="button" className="btn hvr-grow large"><h4>Login with Facebook</h4></button></Link>
         </div>
     </div>
 </div>    
