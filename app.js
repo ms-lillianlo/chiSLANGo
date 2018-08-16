@@ -7,6 +7,10 @@ var app = express();
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://postgres@localhost:5432/chilangos');
 
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+const setupAuth = require('./auth');
+
 sequelize
   .authenticate()
   .then(() => {
@@ -26,6 +30,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/indexRouter', indexRouter);
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
