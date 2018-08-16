@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "development": {
     "username": "postgres",
     "password": null,
@@ -22,3 +23,29 @@
     "dialect": "postgres"
   }
 }
+=======
+    "development": {
+      "username": "root",
+      "password": null,
+      "database": "chilango",
+      "host": "localhost",
+      "port": 5432,
+      "dialect": "postgres"
+    },
+    "test": {
+      "username": "root",
+      "password": null,
+      "database": "database_test",
+      "host": "127.0.0.1",
+      "dialect": "mysql"
+    },
+    "production": {
+      "username": "root",
+      "password": null,
+      "database": "db",
+      "host": "localhost",
+      "dialect": "postgres"
+    }
+  }
+  
+>>>>>>> 942dd52032f3b775c9b6942227dda90b9f90c455
