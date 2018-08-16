@@ -15,6 +15,10 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const setupAuth = require('./auth');
 
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+const setupAuth = require('./auth');
+
 sequelize
   .authenticate()
   .then(() => {
