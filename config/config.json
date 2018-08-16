@@ -1,5 +1,8 @@
 {
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
   "development": {
     "username": "postgres",
     "password": null,
@@ -23,6 +26,7 @@
     "dialect": "postgres"
   }
 }
+<<<<<<< Updated upstream
 =======
     "development": {
       "username": "root",
@@ -49,3 +53,5 @@
   }
   
 >>>>>>> 942dd52032f3b775c9b6942227dda90b9f90c455
+=======
+>>>>>>> Stashed changes
