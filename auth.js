@@ -1,10 +1,14 @@
 const passport = require('passport');
-var FacebookStrategy = require('passport-facebook').Strategy;
+const GitHubStrategy = require('passport-github').Strategy;
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const models = require('./models');
-const dotenv = require('dotenv');
-dotenv.load();
+
+//const Sequelize = require('sequelize');
+
+
+
+
 
 const setupAuth = (app) => {
 
@@ -17,16 +21,14 @@ const setupAuth = (app) => {
         saveUninitialized: true
     }));
 
-    passport.use(new FacebookStrategy({
-        clientID: process.env.FACEBOOK_APP_ID,
-        clientSecret: process.env.FACEBOOK_APP_SECRET,
-        callbackURL: "https://chislango.herokuapp.com/auth/facebook"
-      },
-      function(accessToken, refreshToken, profile, done) {
+    passport.use(new GitHubStrategy({
+        clientID: "9c6f9733180638093a3e",
+        clientSecret: "dd3676a334855c0b6db74e7550f38627d112c93c",
+        callbackURL: "https://chilangosproj.herokuapp.com/github/auth"
+    }, (accessToken, refreshToken, profile, done) => {
         models.User.findOrCreate({
             where: {
-                facebookId: profile.id,
-                username: profile.username
+                githubid: profile.id
             }
         })
             .then(result => {
@@ -48,28 +50,21 @@ const setupAuth = (app) => {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    // app.get('/login', passport.authenticate('facebook'));
-
+    app.get('/login', passport.authenticate('github'));
 
     app.get('/logout', function(req, res, next){
         req.logout();
         res.redirect('/');
     });
 
-    
-
-    app.get('/auth/facebook',
-        passport.authenticate('facebook', {
-            failureRedirect: '/'
+    app.get('/github/auth',
+        passport.authenticate('github', {
+            failureRedirect: '/login'
         }),
         (req, res) => {
-            res.redirect('/about');
-        });
-    app.get('/about',
-        passport.authenticate('facebook', { successRedirect: '/',
-            failureRedirect: '/login' }));
+            res.redirect('/home');
+  });
 };
-
 const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();

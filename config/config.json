@@ -1,4 +1,37 @@
 {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+  "development": {
+    "username": "postgres",
+    "password": null,
+    "database": "mylocaldb",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "hmnkedwbonngcv",
+    "password": "659c311e16d62673193fc81c722d8ee05b75dec14558451591d9962a4e5d641b",
+    "database": "chilangos",
+    "host": "https://chilangosproj.herokuapp.com/",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
     "development": {
       "username": "root",
       "password": null,
@@ -23,3 +56,8 @@
     }
   }
   
+>>>>>>> 942dd52032f3b775c9b6942227dda90b9f90c455
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
