@@ -104,5 +104,11 @@ const setupAuth = app => {
     }
   );
 };
+const ensureAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+      return next();
+  }
+  res.redirect('/home');
+}
 module.exports = setupAuth;
 module.exports.ensureAuthenticated = ensureAuthenticated;
