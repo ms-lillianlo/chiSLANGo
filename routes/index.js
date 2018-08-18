@@ -5,10 +5,10 @@ const models = require("../models");
 const app = express();
 app.use(express.static("public"));
 
-// serve the homepage
+/*// serve the homepage
 app.get("/home", (req, res) => {
   res.sendFile(__dirname + "/home.hbs");
-});
+});*/
 
 //const setupAuth = require('./auth');
 const shuffleArray = array => {
@@ -18,10 +18,11 @@ const shuffleArray = array => {
   }
 };
 
+
 /* GET home page. */
-router.get("/", function(req, res, next) {
+/*router.get("/", function(req, res, next) {
   res.render("index", { title: "Chislango" });
-});
+});*/
 
 router.get("/login", function(req, res, next) {
   //res.render('login', { title: 'stuff here for github' });
@@ -36,7 +37,7 @@ let tryAgain = "disabled";
 let tyButton;
 let continueButton;
 
-router.get("/home", function(req, res, next) {
+router.get("/", function(req, res, next) {
   // res.sendFile(__dirname + '/index.hbs');
 
   models.Question.findAll().then(questions => {
@@ -50,7 +51,7 @@ router.get("/home", function(req, res, next) {
     ];
     shuffleArray(answers);
 
-    res.render("home", {
+    res.json({
       phrase: questions[0].phrase,
       literal_translation: questions[0].literal_translation,
       answer1: answers[0],

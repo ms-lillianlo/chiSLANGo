@@ -19,7 +19,7 @@ class Home extends Component {
 
   componentDidMount() {
     axios.get('/indexRouter').then(({ data }) => {
-      console.log(data)
+      this.setState(data)
     })
   }
   render() {
