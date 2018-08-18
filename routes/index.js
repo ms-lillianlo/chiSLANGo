@@ -34,12 +34,38 @@ let score = 0;
 let previousQuestion;
 let remainQuestions;
 let tryAgain = "disabled";
+let answerStatus = "";
 let tyButton;
 let continueButton;
 
-router.get("/", function(req, res, next) {
+/*router.get("/", function(req, res, next) {
   // res.sendFile(__dirname + '/index.hbs');
+  /*models.Question.findAll().then(questions => {
+    shuffleArray(questions);
+    shuffledQuestions = questions;
+    answers = [
+      questions[0].option_1,
+      questions[0].option_2,
+      questions[0].option_3,
+      questions[0].correct_answer
+    ];
+    shuffleArray(answers);
 
+    res.json({
+      phrase: questions[0].phrase,
+      literal_translation: questions[0].literal_translation,
+      answer1: answers[0],
+      answer2: answers[1],
+      answer3: answers[2],
+      answer4: answers[3],
+      score: score,
+      tryAgain: tryAgain,
+      answerStatus: answerStatus
+    });
+  });
+});*/
+
+router.post("/continue", function(req, res, next){
   models.Question.findAll().then(questions => {
     shuffleArray(questions);
     shuffledQuestions = questions;
@@ -59,15 +85,17 @@ router.get("/", function(req, res, next) {
       answer3: answers[2],
       answer4: answers[3],
       score: score,
-      tryAgain: tryAgain
+      tryAgain: tryAgain,
+      answerStatus: ""
     });
   });
-});
 
-router.post("/home", function(req, res, next) {
-  previousQuestion = shuffledQuestions.shift();
+})
 
-  if (shuffledQuestions.length == 0) {
+router.post("/answer", function(req, res, next){
+  //previousQuestion = shuffledQuestions.shift();
+
+  /*if (shuffledQuestions.length == 0) {
     if (req.body.answer == previousQuestion.correct_answer) {
       score += 1;
     }
@@ -76,36 +104,29 @@ router.post("/home", function(req, res, next) {
       score: score
     });
     score = 0;
-  }
-  if (req.body.answer == previousQuestion.correct_answer) {
+  }*/
+  if (req.body.answer == req.body.correct_answer) {
     score += 1;
     answerStatus = "Correct!";
     tryAgain = "disabled";
-  } else {
+    res.json({
+      tryAgain: tryAgain,
+      answerStatus: answerStatus
+    })
+    
+  } else if (req.body.answer != req.body.correct_answer) {
     answerStatus = "Incorrect";
+    score = data.score;
     tryAgain = "";
+    res.json({
+      tryAgain: tryAgain,
+      answerStatus: answerStatus
+    })
   }
 
-  shuffleArray(shuffledQuestions);
-  answers = [
-    shuffledQuestions[0].option_1,
-    shuffledQuestions[0].option_2,
-    shuffledQuestions[0].option_3,
-    shuffledQuestions[0].correct_answer
-  ];
-  shuffleArray(answers);
-
-  res.render("home", {
-    phrase: shuffledQuestions[0].phrase,
-    literal_translation: shuffledQuestions[0].literal_translation,
-    answer1: answers[0],
-    answer2: answers[1],
-    answer3: answers[2],
-    answer4: answers[3],
-    score: score,
-    answerStatus: answerStatus,
-    tryagain: tryAgain
-  });
+  
 });
+
+
 
 module.exports = router;
