@@ -6,7 +6,7 @@ const models = require("./models");
 
 //const Sequelize = require('sequelize');
 
-const setupAuth = app => {
+const setupAuth = (app) => {
   app.use(cookieParser());
 
   app.use(
@@ -22,25 +22,23 @@ const setupAuth = app => {
       {
         clientID: "9c6f9733180638093a3e",
         clientSecret: "dd3676a334855c0b6db74e7550f38627d112c93c",
-        callbackURL: "https://chislango.herokuapp.com/github/auth"
-      },
-      (accessToken, refreshToken, profile, done) => {
-        models.User.findOrCreate({
-          where: {
-            githubid: profile.id,
-            username: profile.username
-          }
-        })
-          .then(result => {
-            return done(null, result[0]);
+        callbackURL: "http://localhost:3001/auth/github/login"
+      }, (accessToken, refreshToken, profile, done) => {
+          models.User.findOrCreate({
+              where: {
+                  githubId: profile.id
+              },
+              defaults: {
+                  username: profile.login,
+                  githubId: profile.id,
+                  email: profile.email,
+              }
           })
-          .catch(err => {
-            // .catch(done);
-            done(err);
-          });
-      }
-    )
-  );
+          .then(result => {
+              return done(null, result[0]);
+          })
+          .catch(done);
+      }));
 
   passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -53,29 +51,23 @@ const setupAuth = app => {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.get("/login", passport.authenticate("github"));
+  app.get('/auth/github', passport.authenticate('github'));
 
-  app.get("/logout", function(req, res, next) {
-    req.logout();
-    res.redirect("/");
-  });
-
-  app.get(
-    "/github/auth",
-    passport.authenticate("github", {
-      failureRedirect: "/login"
-    }),
-    (req, res) => {
-      res.redirect("/home");
-    }
+  app.get('/auth/github/redirect',
+      passport.authenticate('github', {
+          // if this works, redirect back to the react app homepage
+          successRedirect: '/',
+          // otherwise, go to the react app login
+          failureRedirect: '/login',
+      })
   );
-};
+}
 
 const ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect("/home");
+  res.redirect("/about");
 };
 module.exports = setupAuth;
 module.exports.ensureAuthenticated = ensureAuthenticated;

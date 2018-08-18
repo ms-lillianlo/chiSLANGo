@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
-dotenv.load();var createError = require('http-errors');
+dotenv.load();
+var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -10,7 +11,7 @@ pg.defaults.ssl = true;
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://hmnkedwbonngcv:659c311e16d62673193fc81c722d8ee05b75dec14558451591d9962a4e5d641b@ec2-23-23-226-190.compute-1.amazonaws.com:5432/deifsfdnk4q9p5');
 
-var indexRouter = require('./routes/index');
+var apiRouter = require('./routes/api');
 var usersRouter = require('./routes/users');
 const setupAuth = require('./auth');
 
@@ -23,20 +24,24 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 setupAuth(app);
 
-app.use('/indexRouter', indexRouter);
+app.use('/api', apiRouter);
 app.use('/users', usersRouter);
+
+app.get('/', function (req, res) {
+  res.redirect('/about')
+})
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

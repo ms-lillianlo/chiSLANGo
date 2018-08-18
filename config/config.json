@@ -1,24 +1,26 @@
+
 {
-  "development": {
-    "username": "postgres",
-    "password": null,
-    "database": "mylocaldb",
-    "host": "localhost",
-    "dialect": "postgres"
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "production": {
-    "username": "hmnkedwbonngcv",
-    "password": "659c311e16d62673193fc81c722d8ee05b75dec14558451591d9962a4e5d641b",
-    "database": "deifsfdnk4q9p5",
-    "host": "ec2-23-23-226-190.compute-1.amazonaws.com",
-    "port": 5432,
-    "dialect": "postgres"
+    "development": {
+        "username": "hmnkedwbonngcv",
+        "password": "659c311e16d62673193fc81c722d8ee05b75dec14558451591d9962a4e5d641b",
+        "database": "deifsfdnk4q9p5",
+        "host": "ec2-23-23-226-190.compute-1.amazonaws.com",
+        "port": 5432,
+        "dialect": "postgres"
+    },
+    "test": {
+      "username": "root",
+      "password": null,
+      "database": "database_test",
+      "host": "127.0.0.1",
+      "dialect": "mysql"
+    },
+    "production": {
+      "username": "hmnkedwbonngcv",
+      "password": "659c311e16d62673193fc81c722d8ee05b75dec14558451591d9962a4e5d641b",
+      "database": "deifsfdnk4q9p5",
+      "host": "ec2-23-23-226-190.compute-1.amazonaws.com",
+      "port": 5432,
+      "dialect": "postgres"
+    }
   }
-}
