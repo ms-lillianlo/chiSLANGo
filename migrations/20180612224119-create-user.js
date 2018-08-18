@@ -11,7 +11,7 @@ module.exports = {
       username: {
         type: Sequelize.STRING
       },
-      githubid: {
+      facebookid: {
         type: Sequelize.STRING
       },
       password: {

@@ -3,10 +3,13 @@
 var fs        = require('fs');
 var path      = require('path');
 var Sequelize = require('sequelize');
+var dotevn    = require('dotenv');
 var basename  = path.basename(__filename);
 var env       = process.env.NODE_ENV || 'development';
 var config    = require(__dirname + '/../config/config.json')[env];
 var db        = {};
+
+require('dotenv').config();
 
 if (process.env.DB_HOST) {
   var sequelize = new Sequelize(`postgres://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`);

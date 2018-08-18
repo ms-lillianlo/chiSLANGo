@@ -1,19 +1,13 @@
-/* var createError = require('http-errors');
+var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
+var pg = require('pg');
+pg.defaults.ssl = true;
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://hmnkedwbonngcv:659c311e16d62673193fc81c722d8ee05b75dec14558451591d9962a4e5d641b@ec2-23-23-226-190.compute-1.amazonaws.com:5432/deifsfdnk4q9p5');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-const setupAuth = require('./auth');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-const setupAuth = require('./auth');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -31,7 +25,6 @@ sequelize
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -58,5 +51,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app; */
-
+module.exports = app;
