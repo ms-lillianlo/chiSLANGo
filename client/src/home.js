@@ -19,29 +19,28 @@ class Home extends Component {
     }
   }
 
-
   componentDidMount() {
     axios.post('/indexRouter/continue').then(({ data }) => {
       this.setState(data)
     })
-  
+
   }
 
 answer(e){
   e.preventDefault();
   /*if(e.target.id === "button1"){
     var answer = this.state.answer1
-  }  
+  }
   else if(e.target.id === "button2"){
     var answer = this.state.answer2
-  } 
+  }
   else if(e.target.id === "button3"){
     var answer = this.state.answer3
   }
   else if(e.target.id === "button4"){
     var answer = this.state.answer4
   } */
-  axios.post('/indexRouter/answer').then(({ data }) => {  
+  axios.post('/indexRouter/answer').then(({ data }) => {
   this.setState({score: data.score,
         tryAgain: data.tryAgain,
         answerStatus: data.answerStatus})
@@ -51,7 +50,7 @@ answer(e){
     this.setState(data)
   })
 }
-  
+
   render() {
     return (
       <div>

@@ -3,6 +3,7 @@ const GitHubStrategy = require("passport-github").Strategy;
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const models = require("./models");
+require('dotenv').config()
 
 //const Sequelize = require('sequelize');
 
@@ -20,9 +21,9 @@ const setupAuth = (app) => {
   passport.use(
     new GitHubStrategy(
       {
-        clientID: "9c6f9733180638093a3e",
-        clientSecret: "dd3676a334855c0b6db74e7550f38627d112c93c",
-        callbackURL: "https://chislango.herokuapp.com/auth/github/login"
+        clientID: process.env.clientID,
+        clientSecret: process.env.clientSecret,
+        callbackURL: "https://chislango.herokuapp.com/home"
       }, (accessToken, refreshToken, profile, done) => {
           models.User.findOrCreate({
               where: {
@@ -51,6 +52,14 @@ const setupAuth = (app) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get('/api/user', (req, res, next) => {
+    if (req.user) {
+        return res.json({ user: req.user })
+    } else {
+        return res.json({ user: null })
+    }
+})
+
 app.get('/login', passport.authenticate('github'));
 
 app.get('/logout', function(req, res, next){
@@ -58,20 +67,24 @@ app.get('/logout', function(req, res, next){
     res.redirect('/');
 });
 
+app.get('/home', ensureAuthenticated, function(req, res) {
+
+})
+
 app.get('/github/auth',
     passport.authenticate('github', {
         failureRedirect: '/login'
     }),
     (req, res) => {
         res.redirect('/home');
-    });
+    })
 };
 
 const ensureAuthenticated = (req, res, next) => {
 if (req.isAuthenticated()) {
     return next();
 }
-res.redirect('/home');
+res.redirect('/login');
 }
 module.exports = setupAuth;
 module.exports.ensureAuthenticated = ensureAuthenticated;
