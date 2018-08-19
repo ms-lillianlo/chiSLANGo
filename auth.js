@@ -67,9 +67,9 @@ app.get('/logout', function(req, res, next){
     res.redirect('/');
 });
 
-app.get('/home', ensureAuthenticated, function(req, res) {
+/* app.get('/home', ensureAuthenticated, function(req, res) {
 
-})
+}) */
 
 app.get('/github/auth',
     passport.authenticate('github', {
