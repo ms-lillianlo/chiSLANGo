@@ -11,6 +11,10 @@ router.get('/', (req, res, next) => {
   res.json({ 'status': 'success' });
 });
 
+router.get('/', (req, res, next) => {
+  res.json({ 'status': 'success' });
+});
+
 /* GET home page. */
 router.get('/home', function(req, res, next) {
   if(req.isAuthenticated()){
@@ -19,13 +23,6 @@ router.get('/home', function(req, res, next) {
   }else{
     res.json({loggedIn: false})
   }
-})
-
-router.get('/home/:id', function(req, res, next) {
-  const id = Number(req.params.id);
-  models.user.findById(id,{})
-  .then((data)=>{res.json({data, loggedIn: false})
-  })
 })
 
 module.exports = router;

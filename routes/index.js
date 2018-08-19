@@ -4,6 +4,7 @@ const models = require("../models");
 const bodyParser = require('body-parser');
 const axios = require('axios');
 require('dotenv').config();
+var apiRouter = require('../routes/api');
 
 router.use(bodyParser({urlencoded:true}))
 

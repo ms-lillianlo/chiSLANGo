@@ -32,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 setupAuth(app);
 
+app.use('/', apiRouter);
 app.use('/api', apiRouter);
 app.use('/users', usersRouter);
 
