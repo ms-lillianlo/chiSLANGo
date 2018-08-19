@@ -58,9 +58,6 @@ app.get('/logout', function(req, res, next){
     res.redirect('/');
 });
 
-app.get('/',
-    passport.redirect('/github/login'));
-
 app.get('/github/auth',
     passport.authenticate('github', {
         failureRedirect: '/login'
