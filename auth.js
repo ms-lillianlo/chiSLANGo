@@ -22,15 +22,15 @@ const setupAuth = (app) => {
       {
         clientID: "9c6f9733180638093a3e",
         clientSecret: "dd3676a334855c0b6db74e7550f38627d112c93c",
-        callbackURL: "http://localhost:3001/auth/github/login"
+        callbackURL: "https://chislango.herokuapp.com/auth/github/login"
       }, (accessToken, refreshToken, profile, done) => {
           models.User.findOrCreate({
               where: {
-                  githubId: profile.id
+                  githubid: profile.id
               },
               defaults: {
                   username: profile.login,
-                  githubId: profile.id,
+                  githubid: profile.id,
                   email: profile.email,
               }
           })
@@ -46,28 +46,32 @@ const setupAuth = (app) => {
 
   passport.deserializeUser(function(id, done) {
     done(null, id);
-  });
+});
 
-  app.use(passport.initialize());
-  app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
-  app.get('/auth/github', passport.authenticate('github'));
+app.get('/login', passport.authenticate('github'));
 
-  app.get('/auth/github/redirect',
-      passport.authenticate('github', {
-          // if this works, redirect back to the react app homepage
-          successRedirect: '/',
-          // otherwise, go to the react app login
-          failureRedirect: '/login',
-      })
-  );
-}
+app.get('/logout', function(req, res, next){
+    req.logout();
+    res.redirect('/');
+});
+
+app.get('/github/auth',
+    passport.authenticate('github', {
+        failureRedirect: '/login'
+    }),
+    (req, res) => {
+        res.redirect('/home');
+    });
+};
 
 const ensureAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
+if (req.isAuthenticated()) {
     return next();
-  }
-  res.redirect("/about");
-};
+}
+res.redirect('/home');
+}
 module.exports = setupAuth;
 module.exports.ensureAuthenticated = ensureAuthenticated;

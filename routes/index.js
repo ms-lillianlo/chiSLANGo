@@ -1,9 +1,30 @@
 var express = require("express");
 var router = express.Router();
 const models = require("../models");
+const bodyParser = require('body-parser');
+const axios = require('axios');
+require('dotenv').config();
+
+router.use(bodyParser({urlencoded:true}))
 
 const app = express();
 app.use(express.static("public"));
+
+router.get('/test', function(req, res, next) {
+  if(req.isAuthenticated()){
+    models.user.findById(req.user,{
+    }).then((data)=>{res.json({data, loggedIn: true})})
+  }else{
+     res.json({loggedIn: false})
+  }
+})
+
+router.get('/test/:id', function(req, res, next) {
+  const id = Number(req.params.id);
+  models.user.findById(id,{})
+  .then((data)=>{res.json({data, loggedIn: false})
+  })
+})
 
 /*// serve the homepage
 app.get("/home", (req, res) => {
@@ -17,7 +38,6 @@ const shuffleArray = array => {
     [array[i], array[j]] = [array[j], array[i]];
   }
 };
-
 
 /* GET home page. */
 /*router.get("/", function(req, res, next) {
@@ -113,7 +133,7 @@ router.post("/answer", function(req, res, next){
       tryAgain: tryAgain,
       answerStatus: answerStatus
     })
-    
+
   } else if (req.body.answer != req.body.correct_answer) {
     answerStatus = "Incorrect";
     score = data.score;
@@ -124,9 +144,6 @@ router.post("/answer", function(req, res, next){
     })
   }
 
-  
 });
-
-
 
 module.exports = router;

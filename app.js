@@ -35,13 +35,13 @@ setupAuth(app);
 app.use('/api', apiRouter);
 app.use('/users', usersRouter);
 
-app.get('/', function (req, res) {
+/* app.get('/', function (req, res) {
   res.redirect('/about')
-})
+}) */
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'hbs');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
