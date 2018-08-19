@@ -23,7 +23,7 @@ const setupAuth = (app) => {
       {
         clientID: process.env.clientID,
         clientSecret: process.env.clientSecret,
-        callbackURL: "https://chislango.herokuapp.com/"
+        callbackURL: "https://chislango.herokuapp.com/home"
       }, (accessToken, refreshToken, profile, done) => {
           models.User.findOrCreate({
               where: {
@@ -86,5 +86,6 @@ if (req.isAuthenticated()) {
 }
 res.redirect('/login');
 }
+
 module.exports = setupAuth;
 module.exports.ensureAuthenticated = ensureAuthenticated;
