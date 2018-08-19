@@ -12,6 +12,7 @@ var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://hmnkedwbonngcv:659c311e16d62673193fc81c722d8ee05b75dec14558451591d9962a4e5d641b@ec2-23-23-226-190.compute-1.amazonaws.com:5432/deifsfdnk4q9p5');
 
 var apiRouter = require('./routes/api');
+const apiRouter = require('./routes/api/')
 var usersRouter = require('./routes/users');
 const setupAuth = require('./auth');
 
