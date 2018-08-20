@@ -14,6 +14,7 @@ var sequelize = new Sequelize('postgres://hmnkedwbonngcv:659c311e16d62673193fc81
 var apiRouter = require('./routes/api');
 var usersRouter = require('./routes/users');
 const setupAuth = require('./auth');
+var ensureAuthenticated = require('./auth').ensureAuthenticated;
 
 sequelize
   .authenticate()
@@ -40,6 +41,9 @@ app.use('/users', usersRouter);
   res.redirect('/about')
 }) */
 
+app.get('/home', ensureAuthenticated, function(req, res, next) {
+  res.render('/home')
+})
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
