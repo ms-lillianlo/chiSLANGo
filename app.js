@@ -36,9 +36,9 @@ app.use('/', apiRouter);
 app.use('/api', apiRouter);
 app.use('/users', usersRouter);
 
-/* app.get('/', function (req, res) {
+app.get('/', ensureAuthenticated, function (req, res) {
   res.redirect('/about')
-}) */
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
