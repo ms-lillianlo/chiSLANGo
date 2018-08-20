@@ -19,11 +19,9 @@ class App extends Component {
       <Route path ='/' exact={true} component={LandingPage}/>
       <Route path ='/home' component={Home}/>
       <Route path ='/endgame' component={EndGame}/>
-
+      <Route path ='/login' component={login}/>
       </Switch>
-      <login>
-        <LandingPage />
-      </login>
+      <login />
       </div>
     );
   }

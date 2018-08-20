@@ -16,11 +16,7 @@ class Login extends Component {
                 focus on what really matters: <br />
                 the slang
               </h3>
-              <a href="https://chislango.herokuapp.com/auth/signup">
-                <button className="gitHubButton" type="submit">
-                  Login with github
-                </button>
-              </a>
+              <Link to="/login" className="githubButton btn">Login with Github</Link>
             </div>
           </div>
         </div>
