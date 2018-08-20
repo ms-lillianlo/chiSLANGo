@@ -5,8 +5,6 @@ const cookieParser = require("cookie-parser");
 const models = require("./models");
 require('dotenv').config()
 
-//const Sequelize = require('sequelize');
-
 const setupAuth = (app) => {
   app.use(cookieParser());
 
@@ -23,7 +21,7 @@ const setupAuth = (app) => {
       {
         clientID: process.env.clientID,
         clientSecret: process.env.clientSecret,
-        callbackURL: "https://chislango.herokuapp.com/"
+        callbackURL: "https://chislango.herokuapp.com/home"
       }, (accessToken, refreshToken, profile, done) => {
           models.User.findOrCreate({
               where: {
@@ -66,10 +64,6 @@ app.get('/logout', function(req, res, next){
     req.logout();
     res.redirect('/');
 });
-
-/* app.get('/home', ensureAuthenticated, function(req, res) {
-
-}) */
 
 app.get('/github/auth',
     passport.authenticate('github', {

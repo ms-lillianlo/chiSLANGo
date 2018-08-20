@@ -7,22 +7,18 @@ const bodyParser = require('body-parser');
 router.use(bodyParser({urlencoded:true}))
 // router.all('*', ensureAuthenticated);
 
-router.get('/', (req, res, next) => {
-  res.json({ 'status': 'success' });
-});
-
-router.get('/', (req, res, next) => {
-  res.json({ 'status': 'success' });
+router.get('/', function(req, res, next) {
+  res.redirect('/home');
 });
 
 /* GET home page. */
-router.get('/home', function(req, res, next) {
+/* router.get('/home', function(req, res, next) {
   if(req.isAuthenticated()){
     models.user.findById(req.user,{
     }).then((data)=>{res.json({data, loggedIn: true})})
   }else{
     res.json({loggedIn: false})
   }
-})
+}) */
 
 module.exports = router;

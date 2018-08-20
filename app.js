@@ -37,10 +37,6 @@ app.use('/', apiRouter);
 app.use('/api', apiRouter);
 app.use('/users', usersRouter);
 
-app.get('/', function (req, res) {
-  res.redirect('/about')
-})
-
 app.get('/home', ensureAuthenticated, function(req, res, next) {
   res.render('/home')
 })
