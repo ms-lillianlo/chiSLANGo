@@ -64,9 +64,9 @@ answer(e){
               <h3>What you think it means:</h3>
               <form className="answers">
                 <button id="button1" onClick={this.answer.bind(this)} className="btn btn-lg hvr-grow large" name="answer" value={this.state.answer1}>{this.state.answer1}</button>
-                <button id="button2" onClick={this.answer.bind(this)} className="btn btn-lg hvr-grow large" name="answer" value={this.state.answer1}>{this.state.answer2}</button>
-                <button id="button3" onClick={this.answer.bind(this)} className="btn btn-lg hvr-grow large" name="answer" value={this.state.answer1}>{this.state.answer3}</button>
-                <button id="button4" onClick={this.answer.bind(this)} className="btn btn-lg hvr-grow large" name="answer" value={this.state.answer1}>{this.state.answer4}</button>
+                <button id="button2" onClick={this.answer.bind(this)} className="btn btn-lg hvr-grow large" name="answer" value={this.state.answer2}>{this.state.answer2}</button>
+                <button id="button3" onClick={this.answer.bind(this)} className="btn btn-lg hvr-grow large" name="answer" value={this.state.answer3}>{this.state.answer3}</button>
+                <button id="button4" onClick={this.answer.bind(this)} className="btn btn-lg hvr-grow large" name="answer" value={this.state.answer4}>{this.state.answer4}</button>
               </form>
               <button id="tryAgain" name="redo" className="btn btn-lg hvr-grow  small {this.state.tryAgain}">Try Again</button>
               <button onClick={this.continue.bind(this)} id="nextQuestion" name="continueButton" className="btn btn-lg hvr-grow small">Continue</button>
