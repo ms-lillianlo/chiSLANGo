@@ -38,7 +38,7 @@ app.use('/api', apiRouter);
 app.use('/users', usersRouter);
 
 app.get('/home', ensureAuthenticated, function(req, res, next) {
-  res.render('/home')
+  next();
 })
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
