@@ -71,14 +71,24 @@ app.get('/logout', function(req, res, next){
 
 }) */
 
-app.get('/github/auth',
+/* app.get('/github/auth',
     passport.authenticate('github', {
         failureRedirect: '/login'
     }),
     (req, res) => {
         res.redirect('/home');
     })
-};
+}; */
+
+app.get('/github/auth',
+    passport.authenticate('github', {
+        // if this works, redirect back to the react app homepage
+        successRedirect: '/',
+        // otherwise, go to the react app login
+        failureRedirect: '/login',
+        })
+    );
+}
 
 const ensureAuthenticated = (req, res, next) => {
 if (req.isAuthenticated()) {

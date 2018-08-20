@@ -1,31 +1,9 @@
 var express = require("express");
 var router = express.Router();
 const models = require("../models");
-const bodyParser = require('body-parser');
-const axios = require('axios');
-require('dotenv').config();
-var apiRouter = require('../routes/api');
-
-router.use(bodyParser({urlencoded:true}))
 
 const app = express();
 app.use(express.static("public"));
-
-router.get('/test', function(req, res, next) {
-  if(req.isAuthenticated()){
-    models.user.findById(req.user,{
-    }).then((data)=>{res.json({data, loggedIn: true})})
-  }else{
-     res.json({loggedIn: false})
-  }
-})
-
-router.get('/test/:id', function(req, res, next) {
-  const id = Number(req.params.id);
-  models.user.findById(id,{})
-  .then((data)=>{res.json({data, loggedIn: false})
-  })
-})
 
 /*// serve the homepage
 app.get("/home", (req, res) => {
@@ -71,7 +49,6 @@ let continueButton;
       questions[0].correct_answer
     ];
     shuffleArray(answers);
-
     res.json({
       phrase: questions[0].phrase,
       literal_translation: questions[0].literal_translation,
