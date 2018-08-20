@@ -12,13 +12,13 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET home page. */
-/* router.get('/home', function(req, res, next) {
+router.get('/home', function(req, res, next) {
   if(req.isAuthenticated()){
     models.user.findById(req.user,{
     }).then((data)=>{res.json({data, loggedIn: true})})
   }else{
     res.json({loggedIn: false})
   }
-}) */
+})
 
 module.exports = router;
