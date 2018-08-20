@@ -15,8 +15,8 @@ class LandingPage extends Component {
                 focus on what really matters: <br />
                 the slang
               </h3>
-              <a href="http://localhost:3001/github/auth">
-                <button className="gitHubButton" type="submit">
+              <a href="localhost:3001/login">
+                <button className="gitHubButton btn" type="submit">
                   Login with github
                 </button>
               </a>
