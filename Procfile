@@ -1,1 +1,2 @@
-web: ./bin/www npm start
+web: ./client npm start
+web: ./bin/www node app.js
