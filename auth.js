@@ -28,7 +28,7 @@ const setupAuth = (app) => {
                   githubid: profile.id
               },
               defaults: {
-                  username: profile.login,
+                  username: profile.username,
                   githubid: profile.id,
                   email: profile.email,
               }
