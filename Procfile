@@ -1,1 +1,1 @@
-web: ./client npm start && cd.. node .bin/www
+web: cd && client npm start && cd.. && node .bin/www
