@@ -16,7 +16,7 @@ class Login extends Component {
                 focus on what really matters: <br />
                 the slang
               </h3>
-              <Link to="/login" className="githubButton btn">Login with Github</Link>
+              <a href="/login" className="githubButton btn">Login with Github</a>
             </div>
           </div>
         </div>
