@@ -21,10 +21,10 @@ let answers;
 let score = 0;
 let previousQuestion;
 let remainQuestions;
-let disabled = "true";
 let answerStatus = "";
 let tyButton;
 let continueButton;
+let correctAnswer;
 
 router.post("/continue", function(req, res, next){
   //gets and shuffles questions from database
@@ -38,6 +38,8 @@ router.post("/continue", function(req, res, next){
       questions[0].option_3,
       questions[0].correct_answer
     ];
+    correctAnswer = questions[0].correct_answer;
+    answerStatus = "";
     shuffleArray(answers);
     //sends data to update state
     res.json({
@@ -48,8 +50,8 @@ router.post("/continue", function(req, res, next){
       answer3: answers[2],
       answer4: answers[3],
       score: score,
-      disabled: disabled,
-      answerStatus: answerStatus
+      answerStatus: answerStatus,
+      correctAnswer: correctAnswer
     });
   });
 })
@@ -72,18 +74,16 @@ router.post("/answer", function(req, res, next){
   if (req.body.answer == previousQuestion.correct_answer) {
     score += 1;
     answerStatus = "Correct!";
-    disabled = "true";
+    tryAgainDisabled = "true";
+    continueDisabled = "";
     res.json({
-      disabled: disabled,
       answerStatus: answerStatus,
       score: score
     })
     
   } else {
     answerStatus = "Incorrect";
-    disabled = "";
     res.json({
-      disabled: disabled,
       answerStatus: answerStatus
     })
   }
