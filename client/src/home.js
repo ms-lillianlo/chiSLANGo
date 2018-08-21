@@ -43,7 +43,9 @@ answer(e){
   } 
   //sets state depending on if answer if correct or not
   axios.post('/indexRouter/answer', {answer: answer}).then(({ data }) => {  
-  this.setState({data})
+  this.setState({isabled: data.disabled,
+    answerStatus: data.answerStatus, 
+    score: data.score || this.state.score})
     })
   }
   //sets state for next question
