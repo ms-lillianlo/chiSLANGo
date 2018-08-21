@@ -75,7 +75,8 @@ router.post("/answer", function(req, res, next){
     disabled = "true";
     res.json({
       disabled: disabled,
-      answerStatus: answerStatus
+      answerStatus: answerStatus,
+      score: score
     })
     
   } else {
