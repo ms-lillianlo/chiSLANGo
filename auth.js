@@ -21,7 +21,7 @@ const setupAuth = (app) => {
       {
         clientID: process.env.clientID,
         clientSecret: process.env.clientSecret,
-        callbackURL: "https://chislango.herokuapp.com/github/auth"
+        callbackURL: "https://chislango.herokuapp.com/home"
       }, (accessToken, refreshToken, profile, done) => {
           models.User.findOrCreate({
               where: {
