@@ -4,7 +4,7 @@ import './App.css';
 import LandingPage from './landingPage.js';
 import Home from './home.js';
 import EndGame from './endGame.js';
-import login from './Components/login';
+import Login from './Components/login';
 
 class App extends Component {
 
@@ -19,7 +19,7 @@ class App extends Component {
       <Route path ='/' exact={true} component={LandingPage}/>
       <Route path ='/home' component={Home}/>
       <Route path ='/endgame' component={EndGame}/>
-      <Route path ='/login' component={login}/>
+      <Route path ='/login' component={Login}/>
       </Switch>
       <login />
       </div>
