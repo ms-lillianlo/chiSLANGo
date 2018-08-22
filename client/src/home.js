@@ -15,10 +15,10 @@ class Home extends Component {
       answer4: [],
       score: 0,
       answerStatus: "",
-      correctAnswer: ""
+      correctAnswer: "",
+      isButtonDisabled: false,
     }
   }
-
 //sets state when page loads for first question
   componentDidMount() {
     axios.post('/indexRouter/continue').then(({ data }) => {
@@ -30,7 +30,9 @@ class Home extends Component {
 answer(e){
   e.preventDefault();
   if(e.target.id === "button1"){
-    var answer = this.state.answer1
+    var answer = this.state.answer1;
+    this.setState({
+      isButtonDisabled: true})
   }  
   else if(e.target.id === "button2"){
     var answer = this.state.answer2
@@ -41,7 +43,7 @@ answer(e){
   else if(e.target.id === "button4"){
     var answer = this.state.answer4
   } 
-  console.log(this.state.correctAnswer)
+
   if (answer === this.state.correctAnswer) {
     //sets state depending on if answer if correct or not
     axios.post('/indexRouter/answer', {answer: answer}).then(({ data }) => {  
@@ -61,8 +63,8 @@ answer(e){
     this.setState(data);
   })
 }
-  
   render() {
+    var disabled = "true";
     return (
       <div>
         <div className="container">
@@ -72,7 +74,7 @@ answer(e){
               <h3>Literal translation: {this.state.literal_translation}</h3>
               <h3>What you think it means:</h3>
               <form className="answers">
-                <button id="button1" onClick={this.answer.bind(this)} className="btn btn-lg hvr-grow large">{this.state.answer1}</button>
+                <button id="button1" onClick={this.answer.bind(this)} disabled={this.state.isButtonDisabled} className="btn btn-lg hvr-grow large">{this.state.answer1}</button>
                 <button id="button2" onClick={this.answer.bind(this)} className="btn btn-lg hvr-grow large">{this.state.answer2}</button>
                 <button id="button3" onClick={this.answer.bind(this)} className="btn btn-lg hvr-grow large">{this.state.answer3}</button>
                 <button id="button4" onClick={this.answer.bind(this)} className="btn btn-lg hvr-grow large">{this.state.answer4}</button>

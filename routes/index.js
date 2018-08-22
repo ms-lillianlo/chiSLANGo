@@ -25,6 +25,7 @@ let answerStatus = "";
 let tyButton;
 let continueButton;
 let correctAnswer;
+let isButtonDisabled = false;
 
 router.post("/continue", function(req, res, next){
   //gets and shuffles questions from database
@@ -51,7 +52,8 @@ router.post("/continue", function(req, res, next){
       answer4: answers[3],
       score: score,
       answerStatus: answerStatus,
-      correctAnswer: correctAnswer
+      correctAnswer: correctAnswer,
+      isButtonDisabled: isButtonDisabled,
     });
   });
 })
@@ -74,7 +76,6 @@ router.post("/answer", function(req, res, next){
   if (req.body.answer == previousQuestion.correct_answer) {
     score += 1;
     answerStatus = "Correct!";
-    tryAgainDisabled = "true";
     continueDisabled = "";
     res.json({
       answerStatus: answerStatus,
