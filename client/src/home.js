@@ -25,7 +25,7 @@ class Home extends Component {
       this.setState(data)
     })
   }
-  
+
 //sends answer to backend
 answer(e){
   e.preventDefault();
@@ -36,7 +36,7 @@ answer(e){
   }  
   else if(e.target.id === "button2"){
     var answer = this.state.answer2
-  } 
+  }
   else if(e.target.id === "button3"){
     var answer = this.state.answer3
   }
@@ -46,9 +46,9 @@ answer(e){
 
   if (answer === this.state.correctAnswer) {
     //sets state depending on if answer if correct or not
-    axios.post('/indexRouter/answer', {answer: answer}).then(({ data }) => {  
+    axios.post('/indexRouter/answer', {answer: answer}).then(({ data }) => {
     this.setState({
-      answerStatus: data.answerStatus, 
+      answerStatus: data.answerStatus,
       score: data.score || this.state.score
     })
       })

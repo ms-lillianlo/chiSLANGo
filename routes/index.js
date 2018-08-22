@@ -71,7 +71,7 @@ router.post("/answer", function(req, res, next){
     });
     score = 0;
   }*/
-  
+
   //updates state depending on if answer is correct or not
   if (req.body.answer == previousQuestion.correct_answer) {
     score += 1;
@@ -81,13 +81,13 @@ router.post("/answer", function(req, res, next){
       answerStatus: answerStatus,
       score: score
     })
-    
+
   } else {
     answerStatus = "Incorrect";
     res.json({
       answerStatus: answerStatus
     })
   }
-  
+
 });
 module.exports = router;

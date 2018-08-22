@@ -3,10 +3,9 @@ const GitHubStrategy = require("passport-github").Strategy;
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const models = require("./models");
+require('dotenv').config()
 
-//const Sequelize = require('sequelize');
-
-const setupAuth = app => {
+const setupAuth = (app) => {
   app.use(cookieParser());
 
   app.use(
@@ -20,27 +19,25 @@ const setupAuth = app => {
   passport.use(
     new GitHubStrategy(
       {
-        clientID: "9c6f9733180638093a3e",
-        clientSecret: "dd3676a334855c0b6db74e7550f38627d112c93c",
+        clientID: process.env.clientID,
+        clientSecret: process.env.clientSecret,
         callbackURL: "https://chislango.herokuapp.com/github/auth"
-      },
-      (accessToken, refreshToken, profile, done) => {
-        models.User.findOrCreate({
-          where: {
-            githubid: profile.id,
-            username: profile.username
-          }
-        })
-          .then(result => {
-            return done(null, result[0]);
+      }, (accessToken, refreshToken, profile, done) => {
+          models.User.findOrCreate({
+              where: {
+                  githubid: profile.id
+              },
+              defaults: {
+                  username: profile.login,
+                  githubid: profile.id,
+                  email: profile.email,
+              }
           })
-          .catch(err => {
-            // .catch(done);
-            done(err);
-          });
-      }
-    )
-  );
+          .then(result => {
+              return done(null, result[0]);
+          })
+          .catch(done);
+      }));
 
   passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -48,34 +45,41 @@ const setupAuth = app => {
 
   passport.deserializeUser(function(id, done) {
     done(null, id);
-  });
+});
 
-  app.use(passport.initialize());
-  app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
-  app.get("/login", passport.authenticate("github"));
+app.get('/api/user', (req, res, next) => {
+    if (req.user) {
+        return res.json({ user: req.user })
+    } else {
+        return res.json({ user: null })
+    }
+})
 
-  app.get("/logout", function(req, res, next) {
+app.get('/login', passport.authenticate('github'));
+
+app.get('/logout', function(req, res, next){
     req.logout();
-    res.redirect("/");
-  });
+    res.redirect('/');
+});
 
-  app.get(
-    "/github/auth",
-    passport.authenticate("github", {
-      failureRedirect: "/login"
+app.get('/github/auth',
+    passport.authenticate('github', {
+        failureRedirect: '/login'
     }),
     (req, res) => {
-      res.redirect("/home");
-    }
-  );
+        res.redirect('/home');
+    })
 };
 
 const ensureAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
+if (req.isAuthenticated()) {
     return next();
-  }
-  res.redirect("/home");
-};
+}
+res.redirect('/login');
+}
+
 module.exports = setupAuth;
 module.exports.ensureAuthenticated = ensureAuthenticated;
