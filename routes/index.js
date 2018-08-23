@@ -25,8 +25,12 @@ let answerStatus = "";
 let tyButton;
 let continueButton;
 let correctAnswer;
+let isButton1Disabled = false;
+let isButton2Disabled = false;
+let isButton3Disabled = false;
+let isButton4Disabled = false;
 
-router.post("/continue", function(req, res, next){
+router.post("/getquestions", function(req, res, next){
   //gets and shuffles questions from database
   models.Question.findAll().then(questions => {
     shuffleArray(questions);
@@ -38,9 +42,10 @@ router.post("/continue", function(req, res, next){
       questions[0].option_3,
       questions[0].correct_answer
     ];
+
+    shuffleArray(answers);
     correctAnswer = questions[0].correct_answer;
     answerStatus = "";
-    shuffleArray(answers);
     //sends data to update state
     res.json({
       phrase: questions[0].phrase,
@@ -51,42 +56,78 @@ router.post("/continue", function(req, res, next){
       answer4: answers[3],
       score: score,
       answerStatus: answerStatus,
-      correctAnswer: correctAnswer
+      correctAnswer: correctAnswer,
+      isButton1Disabled: isButton1Disabled,
+      isButton2Disabled: isButton2Disabled,
+      isButton3Disabled: isButton3Disabled,
+      isButton4Disabled: isButton4Disabled,
     });
   });
-})
+});
+
+router.post("/continue", function(req, res, next){
+
+  //shifts to next question in array
+    shuffledQuestions.shift();
+
+    //defines and shuffles answers
+    answers = [
+      shuffledQuestions[0].option_1,
+      shuffledQuestions[0].option_2,
+      shuffledQuestions[0].option_3,
+      shuffledQuestions[0].correct_answer
+    ];
+    shuffleArray(answers);
+    //defines variabeles for state
+    var questionsRemaining = shuffledQuestions.length;
+    correctAnswer = shuffledQuestions[0].correct_answer;
+    answerStatus = "";
+    console.log(shuffledQuestions.length)
+    phrase = shuffledQuestions[0].phrase;
+    literal_translation = shuffledQuestions[0].literal_translation;
+    answer1 = answers[0];
+    answer2 = answers[1];
+    answer3 = answers[2];
+    answer4 = answers[3];
+    //sends data to update state
+    res.json({
+      phrase: phrase,
+      literal_translation: literal_translation,
+      answer1: answer1,
+      answer2: answer2,
+      answer3: answer3,
+      answer4: answer4,
+      score: score,
+      answerStatus: answerStatus,
+      correctAnswer: correctAnswer,
+      isButton1Disabled: isButton1Disabled,
+      isButton2Disabled: isButton2Disabled,
+      isButton3Disabled: isButton3Disabled,
+      isButton4Disabled: isButton4Disabled,
+      questionsRemaining: questionsRemaining,
+    });
+  });
+//})
 
 router.post("/answer", function(req, res, next){
   previousQuestion = shuffledQuestions.shift();
 
-  /*if (shuffledQuestions.length == 0) {
-    if (req.body.answer == previousQuestion.correct_answer) {
-      score += 1;
-    }
-    res.render("endGame", {
-      answerStatus: "End of questions!",
-      score: score
-    });
-    score = 0;
-  }*/
-  
   //updates state depending on if answer is correct or not
   if (req.body.answer == previousQuestion.correct_answer) {
     score += 1;
     answerStatus = "Correct!";
-    tryAgainDisabled = "true";
     continueDisabled = "";
     res.json({
       answerStatus: answerStatus,
       score: score
     })
-    
+
   } else {
     answerStatus = "Incorrect";
     res.json({
       answerStatus: answerStatus
     })
   }
-  
+
 });
 module.exports = router;
