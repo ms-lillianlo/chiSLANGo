@@ -22,10 +22,9 @@ class LandingPage extends Component {
               </Link>
               <Link to="/home">
                 <button type="button" className="btn hvr-grow large">
-                  <h4>No Thanks</h4>
+                  <h4>Continue Without Logging In</h4>
                 </button>
               </Link>
-              <h5>(Continue Without Logging In)</h5>
             </div>
           </div>
         </div>
