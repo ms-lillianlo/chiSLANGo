@@ -21,6 +21,7 @@ class Home extends Component {
       isButton2Disabled: false,
       isButton3Disabled: false,
       isButton4Disabled: false,
+      questionsRemaining: 0,
     }
   }
 //sets state when page loads for first question
@@ -55,11 +56,11 @@ answer(e){
   } 
 
   if (answer === this.state.correctAnswer) {
-    //sets state depending on if answer if correct or not
+    //sends user response to backend and sets state depending on if answer if correct or not
     axios.post('/indexRouter/answer', {answer: answer}).then(({ data }) => {
-    this.setState({
+      this.setState({
       answerStatus: data.answerStatus,
-      score: data.score || this.state.score
+      score: data.score 
     })
       })
   } else {

@@ -29,6 +29,7 @@ let isButton1Disabled = false;
 let isButton2Disabled = false;
 let isButton3Disabled = false;
 let isButton4Disabled = false;
+let questionsRemaining;
 
 router.post("/getquestions", function(req, res, next){
   //gets and shuffles questions from database
@@ -46,6 +47,7 @@ router.post("/getquestions", function(req, res, next){
     shuffleArray(answers);
     correctAnswer = questions[0].correct_answer;
     answerStatus = "";
+    questionsRemaining = shuffledQuestions.length;
     //sends data to update state
     res.json({
       phrase: questions[0].phrase,
@@ -61,14 +63,27 @@ router.post("/getquestions", function(req, res, next){
       isButton2Disabled: isButton2Disabled,
       isButton3Disabled: isButton3Disabled,
       isButton4Disabled: isButton4Disabled,
+      questionsRemaining: questionsRemaining,
     });
   });
 });
 
 router.post("/continue", function(req, res, next){
-
-  //shifts to next question in array
-    shuffledQuestions.shift();
+  questionsRemaining = shuffledQuestions.length; 
+  console.log(shuffledQuestions.length)
+  
+  if (questionsRemaining === 1){
+    console.log(questionsRemaining)
+    {res.json({
+        questionsRemaining: questionsRemaining,
+        score: score,
+      })
+    }
+  }
+  
+  else{
+   //shifts to next question in array 
+    shuffledQuestions.shift()  
 
     //defines and shuffles answers
     answers = [
@@ -78,17 +93,18 @@ router.post("/continue", function(req, res, next){
       shuffledQuestions[0].correct_answer
     ];
     shuffleArray(answers);
+
     //defines variabeles for state
-    var questionsRemaining = shuffledQuestions.length;
     correctAnswer = shuffledQuestions[0].correct_answer;
     answerStatus = "";
-    console.log(shuffledQuestions.length)
     phrase = shuffledQuestions[0].phrase;
     literal_translation = shuffledQuestions[0].literal_translation;
     answer1 = answers[0];
     answer2 = answers[1];
     answer3 = answers[2];
     answer4 = answers[3];
+    questionsRemaining = shuffledQuestions.length;  
+
     //sends data to update state
     res.json({
       phrase: phrase,
@@ -106,17 +122,15 @@ router.post("/continue", function(req, res, next){
       isButton4Disabled: isButton4Disabled,
       questionsRemaining: questionsRemaining,
     });
+  }
   });
-//})
+
 
 router.post("/answer", function(req, res, next){
-  previousQuestion = shuffledQuestions.shift();
-
   //updates state depending on if answer is correct or not
-  if (req.body.answer == previousQuestion.correct_answer) {
+  if (req.body.answer == correctAnswer) {
     score += 1;
     answerStatus = "Correct!";
-    continueDisabled = "";
     res.json({
       answerStatus: answerStatus,
       score: score

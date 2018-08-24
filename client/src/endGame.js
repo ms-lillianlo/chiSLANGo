@@ -13,6 +13,7 @@ class EndGame extends Component {
     componentDidMount() {
         axios.post('/indexRouter/continue').then(({ data }) => {
           this.setState(data)
+          console.log(data)
         })
       }
     render() {
@@ -23,7 +24,10 @@ class EndGame extends Component {
                 <div className="card-body">
                     <h1>End of Questions, great job!</h1>
                     <h1>Final Score: {this.state.score}</h1>
-                    <Link to='/about'><button type="button" className="btn hvr-grow large"><h4>Log Out</h4></button></Link>
+                    <Link to='/'>
+                    <button type="button" className="btn hvr-grow large">
+                    <h4>Log Out</h4>
+                    </button></Link>
                 </div>
             </div>
             </div>

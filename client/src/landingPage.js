@@ -20,6 +20,12 @@ class LandingPage extends Component {
                   <h4>Login with Facebook</h4>
                 </button>
               </Link>
+              <Link to="/home">
+                <button type="button" className="btn hvr-grow large">
+                  <h4>No Thanks</h4>
+                </button>
+              </Link>
+              <h5>(Continue Without Logging In)</h5>
             </div>
           </div>
         </div>
