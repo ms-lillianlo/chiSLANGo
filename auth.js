@@ -4,7 +4,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const models = require("./models");
 
-//const Sequelize = require('sequelize');
+const Sequelize = require('sequelize');
 
 const setupAuth = app => {
   app.use(cookieParser());
@@ -22,7 +22,7 @@ const setupAuth = app => {
       {
         clientID: "9c6f9733180638093a3e",
         clientSecret: "dd3676a334855c0b6db74e7550f38627d112c93c",
-        callbackURL: "https://chislango.herokuapp.com/github/auth"
+        callbackURL: "https://chislango.herokuapp.com/auth/github"
       },
       (accessToken, refreshToken, profile, done) => {
         models.User.findOrCreate({
@@ -61,7 +61,7 @@ const setupAuth = app => {
   });
 
   app.get(
-    "/github/auth",
+    "/auth/github",
     passport.authenticate("github", {
       failureRedirect: "/login"
     }),
