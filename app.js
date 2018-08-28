@@ -11,6 +11,7 @@ var sequelize = new Sequelize('postgres://hmnkedwbonngcv:659c311e16d62673193fc81
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var apiRouter = require('./routes');
 const setupAuth = require('./auth');
 
 sequelize
@@ -32,8 +33,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.use('/indexRouter', indexRouter);
+app.use('/', indexRouter);
+app.use('/api', apiRouter);
 app.use('/users', usersRouter);
+
+app.use('/indexRouter', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
