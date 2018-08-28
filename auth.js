@@ -23,7 +23,7 @@ const setupAuth = app => {
       {
         clientID: process.env.clientID,
         clientSecret: process.env.clientSecret,
-        callbackURL: "https://chislango.herokuapp.com/github/auth"
+        callbackURL: "https://chislango.herokuapp.com/auth/github"
       },
       (accessToken, refreshToken, profile, done) => {
         models.User.findOrCreate({
@@ -62,7 +62,7 @@ const setupAuth = app => {
   });
 
   app.get(
-    "/github/auth",
+    "/auth/github",
     passport.authenticate("github", {
       failureRedirect: "/login"
     }),
