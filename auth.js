@@ -22,12 +22,12 @@ const setupAuth = app => {
       {
         clientID: "9c6f9733180638093a3e",
         clientSecret: "dd3676a334855c0b6db74e7550f38627d112c93c",
-        callbackURL: "https://chislango.herokuapp.com/auth/github"
+        callbackURL: "https://chislango.herokuapp.com/auth/github/"
       },
       (accessToken, refreshToken, profile, done) => {
         models.User.findOrCreate({
           where: {
-            githubid: profile.id,
+            githubId: profile.id,
             username: profile.username
           }
         })
@@ -53,7 +53,7 @@ const setupAuth = app => {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.get("/login", passport.authenticate("github"));
+  //app.get("/login", passport.authenticate("github"));
 
   app.get("/logout", function(req, res, next) {
     req.logout();
@@ -63,7 +63,7 @@ const setupAuth = app => {
   app.get(
     "/auth/github",
     passport.authenticate("github", {
-      failureRedirect: "/login"
+      failureRedirect: "/"
     }),
     (req, res) => {
       res.redirect("/home");
