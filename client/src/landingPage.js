@@ -16,10 +16,11 @@ class LandingPage extends Component {
                 the slang
               </h3>
               <Link to="/auth/facebook">
-                <button type="button" className="btn hvr-grow large">
+                <button type="button" className="btn hvr-grow large" disabled="true">
                   <h4>Login with Facebook</h4>
                 </button>
               </Link>
+              <h3>(coming soon)</h3>
               <Link to="/home">
                 <button type="button" className="btn hvr-grow large">
                   <h4>Continue Without Logging In</h4>
