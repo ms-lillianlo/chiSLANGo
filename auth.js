@@ -7,7 +7,7 @@ require('dotenv').config()
 
 const Sequelize = require('sequelize');
 
-const setupAuth = app => {
+const setupAuth = (app) => {
   app.use(cookieParser());
 
   app.use(
@@ -21,7 +21,7 @@ const setupAuth = app => {
   passport.use(new GitHubStrategy({
     clientID: process.env.clientID,
     clientSecret: process.env.clientSecret,
-    callbackURL: "https://chislango.herokuapp.com/auth/github/"
+    callbackURL: "https://chislango.herokuapp.com/auth/github/callback"
 }, (accessToken, refreshToken, profile, done) => {
     models.User.findOrCreate({
         where: {
@@ -53,7 +53,7 @@ const setupAuth = app => {
   //app.get("/login", passport.authenticate("github"));
   app.get('/auth/github', passport.authenticate('github'));
 
-  app.get('/auth/github/redirect',
+  app.get('/auth/github/callback',
         passport.authenticate('github', {
             // if this works, redirect back to the react app homepage
             successRedirect: '/home',
