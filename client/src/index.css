@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   padding: 0;
@@ -9,12 +10,7 @@ h1 {
 h3 {
   margin: 0 0 20px 0;
 }
-@media only screen and (min-width: 320px) and (max-width: 479px) {
-  .card {
-    width: 100%;
-    height: auto;
-  }
-}
+
 .container {
   display: flex;
   justify-content: center;
@@ -51,6 +47,8 @@ h3 {
   letter-spacing: 2.5px;
   margin: 20px;
   padding: 20px;
+  white-space: normal !important;
+  overflow-wrap: break-word;
 }
 .large {
   width: 50%;
@@ -86,4 +84,47 @@ a {
 .hvr-grow:focus,
 .hvr-grow:active {
   transform: scale(1.1);
+}
+/*small media*/
+@media (max-width: 480px) {
+  h1 {
+    font-size: medium !important
+  }
+  h3{
+    font-size: medium !important;
+  }
+  .btn {
+    margin: 10px !important;
+    padding: 10px !important;
+    font-size: small !important;
+  }
+  .large {
+    width: 80% !important;
+  }
+  .small{
+    width: 40% !important;
+
+  }
+  #background {
+    background-size: 35%;
+  }
+  .card {
+    width: 90% !important
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+  .large {
+    width: 60% !important;
+  }
+  .small{
+    width: 30% !important;
+
+  }
+  #background {
+    background-size: 25%;
+  }
+  .card {
+    width: 80% !important
+  }
 }
