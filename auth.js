@@ -18,30 +18,26 @@ const setupAuth = app => {
     })
   );
 
-  passport.use(
-    new GitHubStrategy(
-      {
-        clientID: process.env.clientID,
-        clientSecret: process.env.clientSecret,
-        callbackURL: "https://chislango.herokuapp.com/auth/github/login"
-      },
-      (accessToken, refreshToken, profile, done) => {
-        models.User.findOrCreate({
-          where: {
+  passport.use(new GitHubStrategy({
+    clientID: process.env.clientID,
+    clientSecret: process.env.clientSecret,
+    callbackURL: "https://chislango.herokuapp.com/auth/github/login"
+}, (accessToken, refreshToken, profile, done) => {
+    models.User.findOrCreate({
+        where: {
+            githubId: profile.id
+        },
+        defaults: {
+            username: profile.login,
             githubId: profile.id,
-            username: profile.username
-          }
-        })
-          .then(result => {
-            return done(null, result[0]);
-          })
-          .catch(err => {
-            // .catch(done);
-            done(err);
-          });
-      }
-    )
-  );
+            email: profile.email,
+        }
+    })
+    .then(result => {
+        return done(null, result[0]);
+    })
+    .catch(done);
+}));
 
   passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -55,21 +51,22 @@ const setupAuth = app => {
   app.use(passport.session());
 
   //app.get("/login", passport.authenticate("github"));
+  app.get('/auth/github', passport.authenticate('github'));
+
+  app.get('/auth/github/redirect',
+        passport.authenticate('github', {
+            // if this works, redirect back to the react app homepage
+            successRedirect: '/',
+            // otherwise, go to the react app login
+            failureRedirect: '/login',
+        })
+    );
 
   app.get("/logout", function(req, res, next) {
     req.logout();
     res.redirect("/");
   });
 
-  app.get(
-    "/auth/github",
-    passport.authenticate("github", {
-      failureRedirect: "/login"
-    }),
-    (req, res) => {
-      res.redirect("/home");
-    }
-  );
 };
 
 const ensureAuthenticated = (req, res, next) => {
