@@ -11,9 +11,7 @@ const shuffleArray = array => {
     [array[i], array[j]] = [array[j], array[i]];
   }
 };
-router.get('/', (req, res, next) => {
-  res.json({ 'status': 'success' });
-});
+
 router.get("/login", function(req, res, next) {
   //res.render('login', { title: 'stuff here for facebook' });
 });
@@ -71,9 +69,9 @@ router.post("/getquestions", function(req, res, next){
 });
 
 router.post("/continue", function(req, res, next){
-  questionsRemaining = shuffledQuestions.length; 
+  questionsRemaining = shuffledQuestions.length;
   console.log(shuffledQuestions.length)
-  
+
   if (questionsRemaining === 1){
     console.log(questionsRemaining)
     {res.json({
@@ -82,10 +80,10 @@ router.post("/continue", function(req, res, next){
       })
     }
   }
-  
+
   else{
-   //shifts to next question in array 
-    shuffledQuestions.shift()  
+   //shifts to next question in array
+    shuffledQuestions.shift()
 
     //defines and shuffles answers
     answers = [
@@ -105,7 +103,7 @@ router.post("/continue", function(req, res, next){
     answer2 = answers[1];
     answer3 = answers[2];
     answer4 = answers[3];
-    questionsRemaining = shuffledQuestions.length;  
+    questionsRemaining = shuffledQuestions.length;
 
     //sends data to update state
     res.json({
