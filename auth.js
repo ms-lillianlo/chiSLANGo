@@ -21,15 +21,15 @@ const setupAuth = (app) => {
   passport.use(new GitHubStrategy({
     clientID: process.env.clientID,
     clientSecret: process.env.clientSecret,
-    callbackURL: "https://chislango.herokuapp.com/auth/github/callback"
+    callbackURL: "https://chislango.herokuapp.com/auth/github/"
 }, (accessToken, refreshToken, profile, done) => {
     models.User.findOrCreate({
         where: {
-            githubid: profile.id
+            githubId: profile.id
         },
         defaults: {
             username: profile.login,
-            githubid: profile.id,
+            githubId: profile.id,
             email: profile.email,
         }
     })
