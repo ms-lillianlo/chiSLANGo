@@ -11,7 +11,9 @@ const shuffleArray = array => {
     [array[i], array[j]] = [array[j], array[i]];
   }
 };
-
+router.get('/', (req, res, next) => {
+  res.json({ 'status': 'success' });
+});
 router.get("/login", function(req, res, next) {
   //res.render('login', { title: 'stuff here for facebook' });
 });
@@ -124,7 +126,6 @@ router.post("/continue", function(req, res, next){
     });
   }
   });
-
 
 router.post("/answer", function(req, res, next){
   //updates state depending on if answer is correct or not
