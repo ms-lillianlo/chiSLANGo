@@ -29,7 +29,7 @@ const setupAuth = app => {
         },
         defaults: {
             username: profile.login,
-            githubId: profile.id,
+            githubid: profile.id,
             email: profile.email,
         }
     })
@@ -58,7 +58,7 @@ const setupAuth = app => {
             // if this works, redirect back to the react app homepage
             successRedirect: '/home',
             // otherwise, go to the react app login
-            failureRedirect: '/login',
+            failureRedirect: '/',
         })
     );
 
