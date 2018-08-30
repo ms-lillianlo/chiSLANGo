@@ -15,8 +15,13 @@ class LandingPage extends Component {
                 focus on what really matters: <br />
                 the slang
               </h3>
+              <Link to="/auth/github">
+                <button type="button" className="btn hvr-grow large">
+                  <h4>Login with GitHub</h4>
+                </button>
+              </Link>
               <Link to="/auth/facebook">
-                <button type="button" className="btn hvr-grow large" disabled="true">
+                <button type="button" className="btn hvr-grow large" disabled>
                   <h4>Login with Facebook</h4>
                 </button>
               </Link>
