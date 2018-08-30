@@ -12,9 +12,8 @@ const shuffleArray = array => {
   }
 };
 
-router.get("/login", function(req, res, next) {
-  //res.render('login', { title: 'stuff here for facebook' });
-});
+/* router.get("/login", function(req, res, next) {
+}); */
 
 let shuffledQuestions;
 let answers;
